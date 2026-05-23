@@ -1,15 +1,7 @@
 name = "hellxstudio"
-type = "javascript"
-account_id = ""
-workers_dev = true
-route = ""
-zone_id = ""
-
-build = { command = "pnpm build" }
+main = "src/index.ts"
 compatibility_date = "2024-12-18"
+pages_build_output_dir = ".next"
 
-[env.production]
-name = "hellxstudio-prod"
-routes = [
-  { pattern = "hellxstudio.kindle.com", zone_name = "kindle.com" }
-]
+[build]
+command = "pnpm install && pnpm build"
