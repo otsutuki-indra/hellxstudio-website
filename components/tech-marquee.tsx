@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-const techLogos = [
+const techLogos: string[] = [
   'Cloudflare',
   'GitHub',
   'Kinde',
@@ -15,7 +15,18 @@ const techLogos = [
   'Tailwind',
 ]
 
-export function TechMarquee() {
+const styles: React.CSSProperties = {
+  '@keyframes scroll': {
+    '0%': {
+      transform: 'translateX(0)',
+    },
+    '100%': {
+      transform: 'translateX(calc(-100% / 2))',
+    },
+  },
+}
+
+export function TechMarquee(): React.ReactElement {
   return (
     <section className="py-12 px-4 bg-muted/30 border-y border-border overflow-hidden">
       <div className="max-w-7xl mx-auto">
@@ -25,9 +36,27 @@ export function TechMarquee() {
 
         {/* Marquee container */}
         <div className="relative w-full overflow-hidden">
+          <style>{`
+            @keyframes scroll {
+              0% {
+                transform: translateX(0);
+              }
+              100% {
+                transform: translateX(calc(-100% / 2));
+              }
+            }
+
+            .animate-scroll {
+              animation: scroll 30s linear infinite;
+            }
+
+            .animate-scroll:hover {
+              animation-play-state: paused;
+            }
+          `}</style>
           <div className="flex gap-12 animate-scroll">
             {/* First set */}
-            {techLogos.map((logo, idx) => (
+            {techLogos.map((logo: string, idx: number) => (
               <div
                 key={idx}
                 className="flex-shrink-0 w-40 h-12 flex items-center justify-center"
@@ -39,7 +68,7 @@ export function TechMarquee() {
             ))}
 
             {/* Second set (for seamless loop) */}
-            {techLogos.map((logo, idx) => (
+            {techLogos.map((logo: string, idx: number) => (
               <div
                 key={`duplicate-${idx}`}
                 className="flex-shrink-0 w-40 h-12 flex items-center justify-center"
@@ -56,25 +85,6 @@ export function TechMarquee() {
           <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-background to-transparent pointer-events-none"></div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(calc(-100% / 2));
-          }
-        }
-
-        .animate-scroll {
-          animation: scroll 30s linear infinite;
-        }
-
-        .animate-scroll:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
     </section>
   )
 }

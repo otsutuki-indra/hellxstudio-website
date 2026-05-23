@@ -1,24 +1,33 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Copy, Check } from 'lucide-react'
 
-export function HeroSection() {
-  const [copied, setCopied] = useState(false)
-  const [selectedPlatform, setSelectedPlatform] = useState('npm')
+const commands: Record<string, string> = {
+  npm: 'npm run deploy --edge',
+  yarn: 'yarn deploy --edge',
+  pnpm: 'pnpm deploy --edge',
+  bun: 'bun run deploy --edge',
+}
 
-  const commands = {
-    npm: 'npm run deploy --edge',
-    yarn: 'yarn deploy --edge',
-    pnpm: 'pnpm deploy --edge',
-    bun: 'bun run deploy --edge',
-  }
+export function HeroSection(): React.ReactElement {
+  const [copied, setCopied] = useState<boolean>(false)
+  const [selectedPlatform, setSelectedPlatform] = useState<keyof typeof commands>('npm')
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(commands[selectedPlatform as keyof typeof commands])
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+  const handleCopy = useCallback((): void => {
+    if (typeof window !== 'undefined' && navigator?.clipboard) {
+      navigator.clipboard
+        .writeText(commands[selectedPlatform])
+        .then(() => {
+          setCopied(true)
+          const timer = setTimeout(() => setCopied(false), 2000)
+          return () => clearTimeout(timer)
+        })
+        .catch((err: Error) => {
+          console.error('[v0] Copy failed:', err.message)
+        })
+    }
+  }, [selectedPlatform])
 
   return (
     <section className="pt-32 pb-20 px-4 relative overflow-hidden">
@@ -60,10 +69,10 @@ export function HeroSection() {
           <div className="space-y-4">
             {/* Platform selector */}
             <div className="flex gap-2 mb-4">
-              {Object.keys(commands).map((platform) => (
+              {Object.keys(commands).map((platform: string) => (
                 <button
                   key={platform}
-                  onClick={() => setSelectedPlatform(platform)}
+                  onClick={() => setSelectedPlatform(platform as keyof typeof commands)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     selectedPlatform === platform
                       ? 'bg-orange-500/20 text-orange-600 dark:text-orange-400 border border-orange-500/50'
@@ -91,7 +100,7 @@ export function HeroSection() {
               <div className="p-6 font-mono text-sm">
                 <div className="space-y-3">
                   <div className="text-zinc-400">
-                    <span className="text-green-400">$</span> {commands[selectedPlatform as keyof typeof commands]}
+                    <span className="text-green-400">$</span> {commands[selectedPlatform]}
                   </div>
 
                   <div className="text-zinc-400 text-xs space-y-2 mt-4 pt-4 border-t border-zinc-700">

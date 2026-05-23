@@ -1,10 +1,26 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Globe, Key, BarChart3, Lock } from 'lucide-react'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
-const chartData = [
+type ChartDataPoint = {
+  time: string
+  value: number
+}
+
+type Provider = {
+  name: string
+  color: string
+}
+
+type PingCoord = {
+  city: string
+  x: number
+  y: number
+}
+
+const chartData: ChartDataPoint[] = [
   { time: '00:00', value: 240 },
   { time: '04:00', value: 321 },
   { time: '08:00', value: 235 },
@@ -14,10 +30,10 @@ const chartData = [
   { time: '24:00', value: 456 },
 ]
 
-function OAuthCard() {
+function OAuthCard(): React.ReactElement {
   const [hoveredProvider, setHoveredProvider] = useState<string | null>(null)
 
-  const providers = [
+  const providers: Provider[] = [
     { name: 'Google', color: 'from-blue-500 to-blue-600' },
     { name: 'GitHub', color: 'from-slate-700 to-slate-800' },
     { name: 'Microsoft', color: 'from-cyan-500 to-cyan-600' },
@@ -34,7 +50,7 @@ function OAuthCard() {
       </div>
 
       <div className="grid grid-cols-3 gap-3">
-        {providers.map((provider) => (
+        {providers.map((provider: Provider) => (
           <button
             key={provider.name}
             onMouseEnter={() => setHoveredProvider(provider.name)}
@@ -59,16 +75,17 @@ function OAuthCard() {
   )
 }
 
-function KeyGeneratorCard() {
-  const [isGenerating, setIsGenerating] = useState(false)
-  const [generatedKey, setGeneratedKey] = useState('')
+function KeyGeneratorCard(): React.ReactElement {
+  const [isGenerating, setIsGenerating] = useState<boolean>(false)
+  const [generatedKey, setGeneratedKey] = useState<string>('')
 
-  const generateKey = () => {
+  const generateKey = (): void => {
     setIsGenerating(true)
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setGeneratedKey('sk_prod_' + Math.random().toString(36).substring(2, 15))
       setIsGenerating(false)
     }, 600)
+    return () => clearTimeout(timeout)
   }
 
   return (
@@ -98,7 +115,7 @@ function KeyGeneratorCard() {
   )
 }
 
-function BillingMeterCard() {
+function BillingMeterCard(): React.ReactElement {
   const usage = 67
   const limit = 10000
 
@@ -131,7 +148,7 @@ function BillingMeterCard() {
   )
 }
 
-function AnalyticsCard() {
+function AnalyticsCard(): React.ReactElement {
   return (
     <div className="space-y-4">
       <div className="flex items-start justify-between mb-2">
@@ -173,12 +190,12 @@ function AnalyticsCard() {
   )
 }
 
-function GlobeCard() {
-  const [pingCoords, setPingCoords] = useState([
+function GlobeCard(): React.ReactElement {
+  const pingCoords: PingCoord[] = [
     { city: 'SFO', x: 15, y: 35 },
     { city: 'LON', x: 50, y: 30 },
     { city: 'SGP', x: 75, y: 55 },
-  ])
+  ]
 
   return (
     <div className="space-y-4">
@@ -203,7 +220,7 @@ function GlobeCard() {
         </svg>
 
         {/* Ping points */}
-        {pingCoords.map((ping, idx) => (
+        {pingCoords.map((ping: PingCoord, idx: number) => (
           <div
             key={idx}
             className="absolute flex flex-col items-center"
@@ -218,7 +235,7 @@ function GlobeCard() {
   )
 }
 
-export function BentoGrid() {
+export function BentoGrid(): React.ReactElement {
   return (
     <section id="features" className="py-20 px-4">
       <div className="max-w-7xl mx-auto">

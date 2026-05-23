@@ -5,7 +5,7 @@ import { PricingEnhanced } from '@/components/pricing-enhanced'
 import { TechMarquee } from '@/components/tech-marquee'
 import { FooterPremium } from '@/components/footer-premium'
 
-export default function Home() {
+export default function Home(): React.ReactElement {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <NavbarPremium />

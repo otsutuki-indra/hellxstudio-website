@@ -1,24 +1,30 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 
-export function NavbarPremium() {
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
+type NavLink = {
+  href: string
+  label: string
+}
 
-  React.useEffect(() => {
+export function NavbarPremium(): React.ReactElement {
+  const [mobileOpen, setMobileOpen] = useState<boolean>(false)
+  const [mounted, setMounted] = useState<boolean>(false)
+  const { theme, setTheme } = useTheme()
+
+  useEffect(() => {
     setMounted(true)
   }, [])
 
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark')
+  const toggleTheme = (): void => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark'
+    setTheme(newTheme)
   }
 
-  const navLinks = [
+  const navLinks: NavLink[] = [
     { href: '#features', label: 'Features' },
     { href: '#pricing', label: 'Pricing' },
     { href: '#docs', label: 'Core Docs' },
@@ -48,7 +54,7 @@ export function NavbarPremium() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+          {navLinks.map((link: NavLink) => (
             <a
               key={link.href}
               href={link.href}
@@ -96,7 +102,7 @@ export function NavbarPremium() {
       {mobileOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-background dark:bg-zinc-950 border-b border-border/50 backdrop-blur-md">
           <div className="flex flex-col gap-4 px-4 py-6">
-            {navLinks.map((link) => (
+            {navLinks.map((link: NavLink) => (
               <a
                 key={link.href}
                 href={link.href}

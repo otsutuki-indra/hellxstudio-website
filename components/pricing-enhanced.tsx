@@ -3,10 +3,20 @@
 import React, { useState } from 'react'
 import { Check } from 'lucide-react'
 
-export function PricingEnhanced() {
-  const [isYearly, setIsYearly] = useState(false)
+type Plan = {
+  name: string
+  description: string
+  monthlyPrice: number
+  yearlyPrice: number
+  isPopular?: boolean
+  features: string[]
+  excluded: string[]
+}
 
-  const plans = [
+export function PricingEnhanced(): React.ReactElement {
+  const [isYearly, setIsYearly] = useState<boolean>(false)
+
+  const plans: Plan[] = [
     {
       name: 'Hobbyist',
       description: 'Perfect for side projects',
@@ -80,7 +90,7 @@ export function PricingEnhanced() {
 
         {/* Pricing cards */}
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {plans.map((plan, idx) => (
+          {plans.map((plan: Plan, idx: number) => (
             <div
               key={idx}
               className={`relative p-8 rounded-2xl transition-all duration-300 ${
@@ -137,7 +147,7 @@ export function PricingEnhanced() {
               {/* Features */}
               <div className="space-y-4 mb-8">
                 <div className="text-sm font-semibold text-foreground mb-4">Includes:</div>
-                {plan.features.map((feature, fidx) => (
+                {plan.features.map((feature: string, fidx: number) => (
                   <div key={fidx} className="flex items-start gap-3">
                     <Check size={18} className="text-emerald-500 flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-foreground">{feature}</span>
@@ -148,7 +158,7 @@ export function PricingEnhanced() {
               {/* Excluded features */}
               {plan.excluded.length > 0 && (
                 <div className="space-y-3 pt-6 border-t border-border">
-                  {plan.excluded.map((feature, fidx) => (
+                  {plan.excluded.map((feature: string, fidx: number) => (
                     <div key={fidx} className="flex items-start gap-3 opacity-50">
                       <span className="text-lg text-muted-foreground">−</span>
                       <span className="text-sm text-muted-foreground">{feature}</span>

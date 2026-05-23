@@ -1,13 +1,36 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Github, Twitter, Linkedin, Mail } from 'lucide-react'
 
-export function FooterPremium() {
-  const currentYear = new Date().getFullYear()
+type FooterColumn = {
+  title: string
+  links: Array<{
+    label: string
+    href: string
+  }>
+}
 
-  const columns = [
+type Stat = {
+  label: string
+  value: string
+}
+
+type SocialLink = {
+  icon: React.ComponentType<{ size: number }>
+  href: string
+  label: string
+}
+
+export function FooterPremium(): React.ReactElement {
+  const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear())
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear())
+  }, [])
+
+  const columns: FooterColumn[] = [
     {
       title: 'Product',
       links: [
@@ -46,14 +69,14 @@ export function FooterPremium() {
     },
   ]
 
-  const stats = [
+  const stats: Stat[] = [
     { label: 'Edge Regions', value: '300+' },
     { label: 'Requests/sec', value: '1M+' },
     { label: 'Uptime SLA', value: '99.999%' },
     { label: 'Active Users', value: '50K+' },
   ]
 
-  const socialLinks = [
+  const socialLinks: SocialLink[] = [
     { icon: Github, href: '#github', label: 'GitHub' },
     { icon: Twitter, href: '#twitter', label: 'Twitter' },
     { icon: Linkedin, href: '#linkedin', label: 'LinkedIn' },
@@ -69,7 +92,7 @@ export function FooterPremium() {
             Global Operations
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, idx) => (
+            {stats.map((stat: Stat, idx: number) => (
               <div key={idx}>
                 <div className="text-2xl md:text-3xl font-bold text-foreground mb-1">
                   {stat.value}
@@ -86,13 +109,13 @@ export function FooterPremium() {
         <div className="max-w-7xl mx-auto">
           {/* Footer grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-            {columns.map((column, idx) => (
+            {columns.map((column: FooterColumn, idx: number) => (
               <div key={idx}>
                 <h3 className="font-bold text-foreground mb-4 text-sm uppercase tracking-wide">
                   {column.title}
                 </h3>
                 <ul className="space-y-3">
-                  {column.links.map((link, lidx) => (
+                  {column.links.map((link, lidx: number) => (
                     <li key={lidx}>
                       <Link
                         href={link.href}
@@ -124,7 +147,7 @@ export function FooterPremium() {
 
             {/* Social links */}
             <div className="flex items-center gap-6">
-              {socialLinks.map((social, idx) => {
+              {socialLinks.map((social: SocialLink, idx: number) => {
                 const Icon = social.icon
                 return (
                   <a
