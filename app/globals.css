@@ -1,0 +1,143 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@layer base {
+  @font-face {
+    font-family: 'Inter';
+    src: url('https://rsms.me/inter/inter.css');
+  }
+}
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* LUXURY TECH COLOR PALETTE - Option 10 */
+  --space-gray: #1D1D1F;
+  --silver-blue: #A2AAAD;
+  --accent-blue: #0071E3;
+  --bg-off-white: #F5F5F7;
+  --text-near-black: #1D1D1F;
+  --emerald: #10B981;
+  --rose: #E11D48;
+  --amber: #F59E0B;
+
+  /* Semantic Design Tokens */
+  --background: var(--bg-off-white);
+  --foreground: var(--space-gray);
+  --card: #FFFFFF;
+  --card-foreground: var(--space-gray);
+  --popover: #FFFFFF;
+  --popover-foreground: var(--space-gray);
+  --primary: var(--space-gray);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--silver-blue);
+  --secondary-foreground: var(--space-gray);
+  --muted: #E5E5EA;
+  --muted-foreground: var(--silver-blue);
+  --accent: var(--accent-blue);
+  --accent-foreground: #FFFFFF;
+  --destructive: var(--rose);
+  --destructive-foreground: #FFFFFF;
+  --border: var(--silver-blue);
+  --input: #FFFFFF;
+  --ring: var(--accent-blue);
+  --chart-1: #0071E3;
+  --chart-2: #10B981;
+  --chart-3: #F59E0B;
+  --chart-4: #E11D48;
+  --chart-5: #A2AAAD;
+  --radius: 0.75rem;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: var(--space-gray);
+  --sidebar-primary: var(--accent-blue);
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: var(--accent-blue);
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #E5E5EA;
+  --sidebar-ring: var(--accent-blue);
+}
+
+.dark {
+  --background: #2C2C2E;
+  --foreground: #F5F5F7;
+  --card: #1D1D1F;
+  --card-foreground: #F5F5F7;
+  --popover: #1D1D1F;
+  --popover-foreground: #F5F5F7;
+  --primary: #F5F5F7;
+  --primary-foreground: var(--space-gray);
+  --secondary: var(--silver-blue);
+  --secondary-foreground: #F5F5F7;
+  --muted: #424245;
+  --muted-foreground: #A2AAAD;
+  --accent: var(--accent-blue);
+  --accent-foreground: #FFFFFF;
+  --destructive: var(--rose);
+  --destructive-foreground: #FFFFFF;
+  --border: #424245;
+  --input: #1D1D1F;
+  --ring: var(--accent-blue);
+  --chart-1: #0071E3;
+  --chart-2: #10B981;
+  --chart-3: #F59E0B;
+  --chart-4: #E11D48;
+  --chart-5: #A2AAAD;
+  --sidebar: #1D1D1F;
+  --sidebar-foreground: #F5F5F7;
+  --sidebar-primary: var(--accent-blue);
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: var(--accent-blue);
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #424245;
+  --sidebar-ring: var(--accent-blue);
+}
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback';
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
