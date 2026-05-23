@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'HellxStudio - Next-Gen Micro-Infrastructure for Developers',
-  description: 'Build, scale, and manage your digital infrastructure with HellxStudio. Modular, transparent, and built for developers.',
+  title: 'HellxStudio - Sovereign Infrastructure at the Edge',
+  description: 'Zero cold starts. Globally distributed micro-billing, Kinde authentication, and software licensing running natively on Cloudflare\'s global network.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -35,9 +36,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-background">
-      <body className="font-sans antialiased bg-background text-foreground">
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className="font-sans antialiased">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          {children}
+        </ThemeProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
